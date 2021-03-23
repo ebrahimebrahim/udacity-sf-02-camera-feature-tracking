@@ -32,3 +32,13 @@ See the classroom instruction and code comments for more details on each of thes
 2. Make a build directory in the top level directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
 4. Run it: `./2D_feature_tracking`.
+
+## How I was able to build on ubuntu
+
+1. Install `sudo apt install libgtk2.0-dev pkg-config`
+2. Get opencv and opencv\_contrib source code, and then build using the following cmake:
+```
+cmake -DOPENCV_EXTRA_MODULES_PATH=<opencv_contrib source directory>/modules <opencv source directory>
+```
+3. Use `sudo make install` to install opencv systemwide
+4. Now you can cmake and make as usual for this project
