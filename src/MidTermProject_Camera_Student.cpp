@@ -21,7 +21,6 @@ using namespace std;
 /* MAIN PROGRAM */
 int main(int argc, const char *argv[])
 {
-
     /* INIT VARIABLES AND DATA STRUCTURES */
 
     // data location
@@ -115,7 +114,7 @@ int main(int argc, const char *argv[])
         }
 
         // push keypoints and descriptor for current frame to end of data buffer
-        (dataBuffer.end() - 1)->keypoints = keypoints;
+        (dataBuffer.end() - 1)->keypoints = keypoints; // TODO: I think this should be a std::move
         cout << "#2 : DETECT KEYPOINTS done" << endl;
 
         /* EXTRACT KEYPOINT DESCRIPTORS */
@@ -130,7 +129,7 @@ int main(int argc, const char *argv[])
         //// EOF STUDENT ASSIGNMENT
 
         // push descriptors for current frame to end of data buffer
-        (dataBuffer.end() - 1)->descriptors = descriptors;
+        (dataBuffer.end() - 1)->descriptors = descriptors; // TODO: I think this should be a std::move
 
         cout << "#3 : EXTRACT DESCRIPTORS done" << endl;
 
@@ -155,7 +154,7 @@ int main(int argc, const char *argv[])
             //// EOF STUDENT ASSIGNMENT
 
             // store matches in current data frame
-            (dataBuffer.end() - 1)->kptMatches = matches;
+            (dataBuffer.end() - 1)->kptMatches = matches; // TODO: I think this should be a std::move
 
             cout << "#4 : MATCH KEYPOINT DESCRIPTORS done" << endl;
 
