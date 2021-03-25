@@ -67,7 +67,7 @@ class Ringbuf {
         {}
 
         reference operator*() const {return (*v_ptr)[idx];}
-        pointer operator->() {return *((*v_ptr)[idx]);}
+        pointer operator->() {return &((*v_ptr)[idx]);}
         Iterator& operator++() {
             if (idx==last_idx)
                 idx=-1;
