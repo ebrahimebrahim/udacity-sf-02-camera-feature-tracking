@@ -182,7 +182,8 @@ void detKeypointsModern(std::vector<cv::KeyPoint> &keypoints, cv::Mat &img, std:
     else if (detectorType.compare("AKAZE") == 0)
         detector = cv::AKAZE::create();
     else if (detectorType.compare("SIFT") == 0)
-        detector = cv::xfeatures2d::SIFT::create();
+        // detector = cv::xfeatures2d::SIFT::create();
+        cerr << "ERROR: SIFT has been disabled in this environment.\n";
     else {
         cerr << "ERROR: Invalid detectorType requested.\n";
     }
