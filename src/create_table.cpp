@@ -60,6 +60,7 @@ void write_rows(std::ostream & os, std::string detectorType, std::string descrip
         dataBuffer.push_back(frame);
 
         /* DETECT IMAGE KEYPOINTS */
+        double t0 = get_ticks_ms();
 
         // extract 2D keypoints from current image
         std::vector<cv::KeyPoint> keypoints; // create empty feature list for current image
@@ -115,6 +116,20 @@ void write_rows(std::ostream & os, std::string detectorType, std::string descrip
 
             // store matches in current data frame
             (dataBuffer.end() - 1)->kptMatches = std::move(matches);
+
+
+            /* WRITE DATA */
+
+            // time in ms to do the keypoint detection, descriptor extraction, and matching
+            os << get_ticks_ms()-t0;
+
+            
+
+            os << "\n";
+
+
+
+
 
             // visualize matches between current and previous image
             bVis = true; // (Turn off when generating rows of table)

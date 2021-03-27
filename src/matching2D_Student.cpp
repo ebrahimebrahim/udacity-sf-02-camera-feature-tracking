@@ -130,7 +130,7 @@ void detKeypointsShiTomasi(vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool b
     }
 }
 
-inline double get_ticks_ms() {return 1000.0 * ((double)cv::getTickCount()) / cv::getTickFrequency();}
+
 
 void detKeypointsHarris(std::vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool bVis, bool silent) {
         // Detector parameters
