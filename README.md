@@ -2,6 +2,7 @@
 
 <img src="images/keypoints.png" width="820" height="248" />
 
+
 The idea of the camera course is to build a collision detection system - that's the overall goal for the Final Project. As a preparation for this, you will now build the feature tracking part and test various detector / descriptor combinations to see which ones perform best. This mid-term project consists of four parts:
 
 * First, you will focus on loading images, setting up data structures and putting everything into a ring buffer to optimize memory load. 
@@ -33,6 +34,12 @@ See the classroom instruction and code comments for more details on each of thes
 3. Compile: `cmake .. && make`
 4. Run it: `./2D_feature_tracking`.
 
+---
+
+Above is the original README for the assignment. Below are my (Ebrahim's) additions.
+
+---
+
 ## How I was able to build on ubuntu
 
 1. Install `sudo apt install libgtk2.0-dev pkg-config`
@@ -42,3 +49,14 @@ cmake -DOPENCV_EXTRA_MODULES_PATH=<opencv_contrib source directory>/modules <ope
 ```
 3. Use `sudo make install` to install opencv systemwide
 4. Now you can cmake and make as usual for this project
+
+## Executables
+
+There are two executable build targets: `2D_feature_tracking` and `create_table`
+
+`2D_feature_tracking` is the main project, and includes a visualization of a particular keypoint detector and descriptor setup. The idea is to change parameters in the code, rebuild this target, and observe the effects in the visualization.
+
+`create_table` is used to write the table that analyzes all possible detector and descriptor combinations. Run like this:
+```
+./create_table > table.csv
+```
