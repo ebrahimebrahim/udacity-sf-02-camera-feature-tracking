@@ -56,7 +56,7 @@ There are two executable build targets: `2D_feature_tracking` and `create_table`
 
 `2D_feature_tracking` is the main project, and includes a visualization of a particular keypoint detector and descriptor setup. The idea is to change parameters in the code, rebuild this target, and observe the effects in the visualization.
 
-`create_table` is used to write the table that analyzes all possible detector and descriptor combinations. Run like this:
+`create_table` is used to generate the table summarizing all possible detector and descriptor combinations. Run like this:
 ```
 ./create_table > table.csv
 ```
