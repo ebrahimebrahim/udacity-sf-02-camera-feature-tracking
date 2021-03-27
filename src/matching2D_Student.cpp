@@ -50,7 +50,7 @@ void matchDescriptors(std::vector<cv::KeyPoint> &kPtsSource, std::vector<cv::Key
 // TASK MP.4 -> add the following descriptors in file matching2D.cpp and enable string-based selection based on descriptorType
 // -> BRIEF, ORB, FREAK, AKAZE, SIFT
 // Use one of several types of state-of-art descriptors to uniquely identify keypoints
-void descKeypoints(vector<cv::KeyPoint> &keypoints, cv::Mat &img, cv::Mat &descriptors, string descriptorType)
+void descKeypoints(vector<cv::KeyPoint> &keypoints, cv::Mat &img, cv::Mat &descriptors, string descriptorType, bool silent)
 {
     // select appropriate descriptor
     cv::Ptr<cv::DescriptorExtractor> extractor;
@@ -84,11 +84,12 @@ void descKeypoints(vector<cv::KeyPoint> &keypoints, cv::Mat &img, cv::Mat &descr
     double t = (double)cv::getTickCount();
     extractor->compute(img, keypoints, descriptors);
     t = ((double)cv::getTickCount() - t) / cv::getTickFrequency();
-    cout << descriptorType << " descriptor extraction in " << 1000 * t / 1.0 << " ms" << endl;
+    if (!silent)
+        cout << descriptorType << " descriptor extraction in " << 1000 * t / 1.0 << " ms" << endl;
 }
 
 // Detect keypoints in image using the traditional Shi-Thomasi detector
-void detKeypointsShiTomasi(vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool bVis)
+void detKeypointsShiTomasi(vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool bVis, bool silent)
 {
     // compute detector parameters based on image size
     int blockSize = 4;       //  size of an average block for computing a derivative covariation matrix over each pixel neighborhood
@@ -114,7 +115,8 @@ void detKeypointsShiTomasi(vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool b
         keypoints.push_back(newKeyPoint);
     }
     t = ((double)cv::getTickCount() - t) / cv::getTickFrequency();
-    cout << "Shi-Tomasi detection with n=" << keypoints.size() << " keypoints in " << 1000 * t / 1.0 << " ms" << endl;
+    if (!silent)
+        cout << "Shi-Tomasi detection with n=" << keypoints.size() << " keypoints in " << 1000 * t / 1.0 << " ms" << endl;
 
     // visualize results
     if (bVis)
@@ -130,7 +132,7 @@ void detKeypointsShiTomasi(vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool b
 
 inline double get_ticks_ms() {return 1000.0 * ((double)cv::getTickCount()) / cv::getTickFrequency();}
 
-void detKeypointsHarris(std::vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool bVis) {
+void detKeypointsHarris(std::vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool bVis, bool silent) {
         // Detector parameters
     int blockSize = 2;     // for every pixel, a blockSize × blockSize neighborhood is considered
     int apertureSize = 3;  // aperture parameter for Sobel operator (must be odd)
@@ -159,7 +161,8 @@ void detKeypointsHarris(std::vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool
     float repel_dist = 6.0;
 
     double t1 = get_ticks_ms();
-    cout << "Harris corner detection initially found " << keypoints.size() << " keypoints. It took " << t1-t0 << "ms.\n";
+    if (!silent)
+        cout << "Harris corner detection initially found " << keypoints.size() << " keypoints. It took " << t1-t0 << "ms.\n";
 
     for (auto it = keypoints.begin(); it!=keypoints.end();) {
         bool delete_this_one = false;
@@ -180,7 +183,8 @@ void detKeypointsHarris(std::vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool
     }
 
     double t2 = get_ticks_ms();
-    cout << "After nonmax suppression, " << keypoints.size() << " remain. Nonmax suppression took " << t2-t1 << "ms\n.";
+    if (!silent)
+        cout << "After nonmax suppression, " << keypoints.size() << " remain. Nonmax suppression took " << t2-t1 << "ms\n.";
 
     if (bVis) {
         string windowName = "Harris Corner Detection Results";
@@ -194,7 +198,7 @@ void detKeypointsHarris(std::vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool
 }
 
 
-void detKeypointsModern(std::vector<cv::KeyPoint> &keypoints, cv::Mat &img, std::string detectorType, bool bVis) {
+void detKeypointsModern(std::vector<cv::KeyPoint> &keypoints, cv::Mat &img, std::string detectorType, bool bVis, bool silent) {
 
     double t0 = get_ticks_ms();
 
@@ -215,7 +219,8 @@ void detKeypointsModern(std::vector<cv::KeyPoint> &keypoints, cv::Mat &img, std:
     }
     
     detector->detect(img, keypoints);
-    cout << detectorType << " keypoint finder with " << keypoints.size() << " keypoints in " << get_ticks_ms() - t0 << " ms" << endl;
+    if (!silent)
+        cout << detectorType << " keypoint finder with " << keypoints.size() << " keypoints in " << get_ticks_ms() - t0 << " ms" << endl;
 
     if (bVis) {
         cv::Mat visImage = img.clone();

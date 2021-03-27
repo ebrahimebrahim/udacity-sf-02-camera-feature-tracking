@@ -13,6 +13,10 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 link_directories(${OpenCV_LIBRARY_DIRS})
 add_definitions(${OpenCV_DEFINITIONS})
 
-# Executable for create matrix exercise
+# Executable for main project
 add_executable (2D_feature_tracking src/matching2D_Student.cpp src/MidTermProject_Camera_Student.cpp)
 target_link_libraries (2D_feature_tracking ${OpenCV_LIBRARIES})
+
+# Executable for generating spreadsheet
+add_executable (create_table src/matching2D_Student.cpp src/create_table.cpp)
+target_link_libraries (create_table ${OpenCV_LIBRARIES})
