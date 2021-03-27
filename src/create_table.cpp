@@ -193,7 +193,7 @@ int main() {
     }
     output_target << "\n";
 
-    std::vector<std::string> detectors = {"SHITOMASI", "HARRIS", "FAST", "BRISK", "ORB"}; // TODO put SIFT back in
+    std::vector<std::string> detectors = {"SHITOMASI", "HARRIS", "FAST", "BRISK", "ORB"}; // TODO put SIFT back in, but don't use with ORB descriptor
     std::vector<std::string> descriptors = {"BRISK", "BRIEF", "ORB", "FREAK"}; // TODO put SIFT back in
 
     for (auto & detector : detectors)
