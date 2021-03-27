@@ -117,7 +117,7 @@ int main(int argc, const char *argv[])
         }
 
         // push keypoints and descriptor for current frame to end of data buffer
-        (dataBuffer.end() - 1)->keypoints = keypoints; // TODO: I think this should be a std::move
+        (dataBuffer.end() - 1)->keypoints = std::move(keypoints);
         cout << "#2 : DETECT KEYPOINTS done" << endl;
 
         /* EXTRACT KEYPOINT DESCRIPTORS */
@@ -132,7 +132,7 @@ int main(int argc, const char *argv[])
         //// EOF STUDENT ASSIGNMENT
 
         // push descriptors for current frame to end of data buffer
-        (dataBuffer.end() - 1)->descriptors = descriptors; // TODO: I think this should be a std::move
+        (dataBuffer.end() - 1)->descriptors = std::move(descriptors);
 
         cout << "#3 : EXTRACT DESCRIPTORS done" << endl;
 
@@ -157,7 +157,7 @@ int main(int argc, const char *argv[])
             //// EOF STUDENT ASSIGNMENT
 
             // store matches in current data frame
-            (dataBuffer.end() - 1)->kptMatches = matches; // TODO: I think this should be a std::move
+            (dataBuffer.end() - 1)->kptMatches = std::move(matches);
 
             cout << "#4 : MATCH KEYPOINT DESCRIPTORS done" << endl;
 
@@ -168,7 +168,7 @@ int main(int argc, const char *argv[])
                 cv::Mat matchImg = ((dataBuffer.end() - 1)->cameraImg).clone();
                 cv::drawMatches((dataBuffer.end() - 2)->cameraImg, (dataBuffer.end() - 2)->keypoints,
                                 (dataBuffer.end() - 1)->cameraImg, (dataBuffer.end() - 1)->keypoints,
-                                matches, matchImg,
+                                (dataBuffer.end() - 1)->kptMatches, matchImg,
                                 cv::Scalar::all(-1), cv::Scalar::all(-1),
                                 vector<char>(), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 
